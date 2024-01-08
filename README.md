@@ -55,11 +55,12 @@
    ```
    source ~/.bashrc
    ```
-2. Launch Simulation World :
+2. Launch Simulation World & Navigation Goals :
+
+   Note: Execute these two commands separately in different terminal windows.
    ```
    roslaunch turtlebot3_gazebo turtlebot3_world.launch
    ```
-3. Launch Navigation Goals :
    ```
    roslaunch simple_nav_goals simple_nav_goals.launch
    ```
@@ -70,3 +71,4 @@
 - Install Gazebo using Ubuntu packages (https://classic.gazebosim.org/tutorials?tut=install_ubuntu)
 - TurtleBot3 Simulation (https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/)
 - SendingSimpleGoals (https://wiki.ros.org/navigation/Tutorials/SendingSimpleGoals)
+- dwa_local_planner (https://wiki.ros.org/dwa_local_planner)
