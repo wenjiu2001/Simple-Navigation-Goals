@@ -1,0 +1,26 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="map_file" default="$(find simple_nav_goals)/map/map.yaml"/>
+  <arg name="open_rviz" default="true"/>
+  <arg name="move_forward_only" default="false"/>
+  <arg name="param" default="$(find simple_nav_goals)/param/goal.yaml"/>
+  
+  <!-- Turn on Webcam -->
+  <include file="$(find usb_cam)/launch/usb_cam-test.launch"/>
+  
+  <!-- Scan the Barcode -->
+  <node pkg="zbar_opencv" name="zbar_opencv" type="zbar_opencv" output="screen"/>
+  
+  <!-- Robot Navigation -->
+  <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+    <arg name="model" value="$(arg model)" />
+    <arg name="map_file" value="$(arg map_file)" />
+    <arg name="open_rviz" default="$(arg open_rviz)"/>
+    <arg name="move_forward_only" default="$(arg move_forward_only)"/>
+  </include>
+  
+  <!-- Main Program -->
+  <node pkg="simple_nav_goals" name="simple_nav_goals" type="simple_nav_goals" output="screen"/>
+    <rosparam file="$(arg param)"/>
+</launch>
