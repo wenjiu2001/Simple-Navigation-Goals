@@ -7,6 +7,12 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
 )
 
+catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES zbar_opencv
+#  DEPENDS system_lib
+)
+
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
