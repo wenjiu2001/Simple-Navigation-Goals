@@ -4,7 +4,7 @@
   <arg name="map_file" default="$(find simple_nav_goals)/map/map.yaml"/>
   <arg name="open_rviz" default="true"/>
   <arg name="move_forward_only" default="false"/>
-  <arg name="param" default="$(find simple_nav_goals)/param/goal.yaml"/>
+  <arg name="point" default="$(find simple_nav_goals)/param/point.yaml"/>
   
   <!-- Turn on Webcam -->
   <include file="$(find usb_cam)/launch/usb_cam-test.launch"/>
@@ -22,5 +22,5 @@
   
   <!-- Main Program -->
   <node pkg="simple_nav_goals" name="simple_nav_goals" type="simple_nav_goals" output="screen"/>
-    <rosparam file="$(arg param)"/>
+    <rosparam file="$(arg point)"/>
 </launch>
