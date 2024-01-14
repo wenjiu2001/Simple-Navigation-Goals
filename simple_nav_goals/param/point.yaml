@@ -3,7 +3,7 @@ Home:
   y: 2.7
 
 Table1:
-  x: 2.5
+  x: 2.4
   y: -2.5
 
 Table2:
@@ -12,12 +12,12 @@ Table2:
 
 Table3:
   x: -2.5
-  y: 0.5
+  y: -2.5
 
 Table4:
   x: -2.5
-  y: -2.00
+  y: 0.5
   
 Meal:
   x: 2.5
-  y: 3.4
+  y: 3.5

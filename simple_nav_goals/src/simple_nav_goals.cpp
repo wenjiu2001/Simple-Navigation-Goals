@@ -7,32 +7,27 @@ typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>
     MoveBaseClient;
 
 int navTable;
+std::string locations[] = {"/Home", "/Table1", "/Table2", "/Table3", "/Table4", "/Meal"};
 double goalLocate[6][2];
 std::string zbarCBMsg, zbarLastCBMsg = "";
-std::string msg =
+const char* msg = 
   "--------------TIRT--------------\n"
-  "|      Enter table number      |\n"
-  "|       0         Home         |\n"
-  "|       1         Table1       |\n"
-  "|       2         Table2       |\n"
-  "|       3         Table3       |\n"
-  "|       4         Table4       |\n"
-  "|       5         Meal         |\n"
+  "|  Number   Name       Point    \n"
+  "|    0      Home    %.2f  %.2f  \n"
+  "|    1     Table1   %.2f  %.2f  \n"
+  "|    2     Table2   %.2f  %.2f  \n"
+  "|    3     Table3   %.2f  %.2f  \n"
+  "|    4     Table4   %.2f  %.2f  \n"
+  "|    5      Meal    %.2f  %.2f  \n"
   "--------------------------------\n";
 
 void getparam(ros::NodeHandle &nh) {
-  nh.getParam("/Home/x", goalLocate[0][0]);
-  nh.getParam("/Home/y", goalLocate[0][1]);
-  nh.getParam("/Table1/x", goalLocate[1][0]);
-  nh.getParam("/Table1/y", goalLocate[1][1]);
-  nh.getParam("/Table2/x", goalLocate[2][0]);
-  nh.getParam("/Table2/y", goalLocate[2][1]);
-  nh.getParam("/Table3/x", goalLocate[3][0]);
-  nh.getParam("/Table3/y", goalLocate[3][1]);
-  nh.getParam("/Table4/x", goalLocate[4][0]);
-  nh.getParam("/Table4/y", goalLocate[4][1]);
-  nh.getParam("/Meal/x", goalLocate[5][0]);
-  nh.getParam("/Meal/y", goalLocate[5][1]);
+  for (int i = 0; i < 6; ++i) {
+    std::string paramNameX = locations[i] + "/x";
+    std::string paramNameY = locations[i] + "/y";
+    nh.getParam(paramNameX, goalLocate[i][0]);
+    nh.getParam(paramNameY, goalLocate[i][1]);
+  }
 }
 
 void nav(int table) {
@@ -83,7 +78,13 @@ int main(int argc, char **argv) {
   while (ros::ok()) {
     // Exemplify the code (Revise it in accordance with the task)
     getparam(nh);
-    printf("%s", msg.c_str());
+    printf(msg,
+           goalLocate[0][0], goalLocate[0][1],
+           goalLocate[1][0], goalLocate[1][1],
+           goalLocate[2][0], goalLocate[2][1],
+           goalLocate[3][0], goalLocate[3][1],
+           goalLocate[4][0], goalLocate[4][1],
+           goalLocate[5][0], goalLocate[5][1]);
     scanf("%d", &navTable);
     nav(navTable);
     zbar();
