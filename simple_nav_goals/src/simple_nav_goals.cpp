@@ -7,8 +7,18 @@ typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>
     MoveBaseClient;
 
 int navTable;
-double goalLocate[5][2];
-std::string zbarCBMsg = "";
+double goalLocate[6][2];
+std::string zbarCBMsg, zbarLastCBMsg = "";
+std::string msg =
+  "--------------TIRT--------------\n"
+  "|      Enter table number      |\n"
+  "|       0         Home         |\n"
+  "|       1         Table1       |\n"
+  "|       2         Table2       |\n"
+  "|       3         Table3       |\n"
+  "|       4         Table4       |\n"
+  "|       5         Meal         |\n"
+  "--------------------------------\n";
 
 void getparam(ros::NodeHandle &nh) {
   nh.getParam("/Home/x", goalLocate[0][0]);
@@ -21,12 +31,8 @@ void getparam(ros::NodeHandle &nh) {
   nh.getParam("/Table3/y", goalLocate[3][1]);
   nh.getParam("/Table4/x", goalLocate[4][0]);
   nh.getParam("/Table4/y", goalLocate[4][1]);
-
-  printf("\n -------------------------\n home %f %f \n table1 %f %f\n table2 "
-         "%f %f\n table3 %f %f\n table4 %f %f\n -------------------------\n ",
-         goalLocate[0][0], goalLocate[0][1], goalLocate[1][0], goalLocate[1][1],
-         goalLocate[2][0], goalLocate[2][1], goalLocate[3][0], goalLocate[3][1],
-         goalLocate[4][0], goalLocate[4][1]);
+  nh.getParam("/Meal/x", goalLocate[5][0]);
+  nh.getParam("/Meal/y", goalLocate[5][1]);
 }
 
 void nav(int table) {
@@ -54,8 +60,19 @@ void nav(int table) {
     ROS_INFO("Fail");
 }
 
+void zbar(){
+  ROS_INFO("Awaiting the scan of the QR code");
+  while (true){
+    if (zbarLastCBMsg != zbarCBMsg){
+      printf("--------------ZBar--------------\n| Callback value : \033[32m%s\033[0m\n", zbarCBMsg.c_str());
+      zbarLastCBMsg = zbarCBMsg;
+      break;
+    }
+    ros::spinOnce();
+  }
+}
+
 void zbarCallback(const std_msgs::String::ConstPtr &msg) {
-  ROS_INFO("\n\n\n\nzbar callback %s\n\n\n\n", msg->data.c_str());
   zbarCBMsg = msg->data;
 }
 
@@ -66,14 +83,10 @@ int main(int argc, char **argv) {
   while (ros::ok()) {
     // Exemplify the code (Revise it in accordance with the task)
     getparam(nh);
-    printf("\n---------TIRT2023--------\n|PRESSE A KEY:           |\n|1  "
-           "Table1                |\n|2  Table2                |\n|3  Table3   "
-           "             |\n|4  Table4                "
-           "|\n------------------------\n Where to go\n");
+    printf("%s", msg.c_str());
     scanf("%d", &navTable);
     nav(navTable);
-    ROS_INFO("\n\n\n\nEnter Key to continue %s\n\n\n\n", zbarCBMsg.c_str());
-    ros::spinOnce();
+    zbar();
   }
   return 0;
 }
