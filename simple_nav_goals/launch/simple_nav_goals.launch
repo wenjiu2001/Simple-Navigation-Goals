@@ -6,11 +6,8 @@
   <arg name="move_forward_only" default="false"/>
   <arg name="point" default="$(find simple_nav_goals)/param/point.yaml"/>
   
-  <!-- Turn on Webcam -->
-  <include file="$(find usb_cam)/launch/usb_cam-test.launch"/>
-  
-  <!-- Scan the Barcode -->
-  <node pkg="zbar_opencv" name="zbar_opencv" type="zbar_opencv" output="screen"/>
+  <!-- Scan the QR code -->
+  <include file="$(find zbar_opencv)/launch/zbar_opencv.launch"/>
   
   <!-- Robot Navigation -->
   <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
