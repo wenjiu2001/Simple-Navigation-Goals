@@ -7,26 +7,27 @@ typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>
     MoveBaseClient;
 
 int navTable;
-double goalLocate[5][2];
-std::string zbarCBMsg = "";
+std::string locations[] = {"/Home", "/Table1", "/Table2", "/Table3", "/Table4", "/Meal"};
+double goalLocate[6][2];
+std::string zbarCBMsg, zbarLastCBMsg = "";
+const char* msg = 
+  "--------------TIRT--------------\n"
+  "|  Number   Name       Point    \n"
+  "|    0      Home    %.2f  %.2f  \n"
+  "|    1     Table1   %.2f  %.2f  \n"
+  "|    2     Table2   %.2f  %.2f  \n"
+  "|    3     Table3   %.2f  %.2f  \n"
+  "|    4     Table4   %.2f  %.2f  \n"
+  "|    5      Meal    %.2f  %.2f  \n"
+  "--------------------------------\n";
 
 void getparam(ros::NodeHandle &nh) {
-  nh.getParam("/Home/x", goalLocate[0][0]);
-  nh.getParam("/Home/y", goalLocate[0][1]);
-  nh.getParam("/Table1/x", goalLocate[1][0]);
-  nh.getParam("/Table1/y", goalLocate[1][1]);
-  nh.getParam("/Table2/x", goalLocate[2][0]);
-  nh.getParam("/Table2/y", goalLocate[2][1]);
-  nh.getParam("/Table3/x", goalLocate[3][0]);
-  nh.getParam("/Table3/y", goalLocate[3][1]);
-  nh.getParam("/Table4/x", goalLocate[4][0]);
-  nh.getParam("/Table4/y", goalLocate[4][1]);
-
-  printf("\n -------------------------\n home %f %f \n table1 %f %f\n table2 "
-         "%f %f\n table3 %f %f\n table4 %f %f\n -------------------------\n ",
-         goalLocate[0][0], goalLocate[0][1], goalLocate[1][0], goalLocate[1][1],
-         goalLocate[2][0], goalLocate[2][1], goalLocate[3][0], goalLocate[3][1],
-         goalLocate[4][0], goalLocate[4][1]);
+  for (int i = 0; i < 6; ++i) {
+    std::string paramNameX = locations[i] + "/x";
+    std::string paramNameY = locations[i] + "/y";
+    nh.getParam(paramNameX, goalLocate[i][0]);
+    nh.getParam(paramNameY, goalLocate[i][1]);
+  }
 }
 
 void nav(int table) {
@@ -54,8 +55,19 @@ void nav(int table) {
     ROS_INFO("Fail");
 }
 
+void zbar(){
+  ROS_INFO("Awaiting the scan of the QR code");
+  while (true){
+    if (zbarLastCBMsg != zbarCBMsg){
+      printf("--------------ZBar--------------\n| Callback value : \033[32m%s\033[0m\n", zbarCBMsg.c_str());
+      zbarLastCBMsg = zbarCBMsg;
+      break;
+    }
+    ros::spinOnce();
+  }
+}
+
 void zbarCallback(const std_msgs::String::ConstPtr &msg) {
-  ROS_INFO("\n\n\n\nzbar callback %s\n\n\n\n", msg->data.c_str());
   zbarCBMsg = msg->data;
 }
 
@@ -66,14 +78,16 @@ int main(int argc, char **argv) {
   while (ros::ok()) {
     // Exemplify the code (Revise it in accordance with the task)
     getparam(nh);
-    printf("\n---------TIRT2023--------\n|PRESSE A KEY:           |\n|1  "
-           "Table1                |\n|2  Table2                |\n|3  Table3   "
-           "             |\n|4  Table4                "
-           "|\n------------------------\n Where to go\n");
+    printf(msg,
+           goalLocate[0][0], goalLocate[0][1],
+           goalLocate[1][0], goalLocate[1][1],
+           goalLocate[2][0], goalLocate[2][1],
+           goalLocate[3][0], goalLocate[3][1],
+           goalLocate[4][0], goalLocate[4][1],
+           goalLocate[5][0], goalLocate[5][1]);
     scanf("%d", &navTable);
     nav(navTable);
-    ROS_INFO("\n\n\n\nEnter Key to continue %s\n\n\n\n", zbarCBMsg.c_str());
-    ros::spinOnce();
+    zbar();
   }
   return 0;
 }
