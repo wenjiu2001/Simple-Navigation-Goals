@@ -1,8 +1,8 @@
 # Simple-Navigation-Goals
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![Ubuntu:Focal](https://img.shields.io/badge/Ubuntu-Focal-brightgreen)](https://releases.ubuntu.com/focal/)
-[![ROS:Noetic](https://img.shields.io/badge/ROS-Noetic-blue)](https://wiki.ros.org/noetic/Installation/Ubuntu)
+![ROS](https://img.shields.io/badge/ROS-Noetic-blue)
+[![Robot](https://img.shields.io/badge/Robot-TurtleBot3-brightgreen)](https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#gazebo-simulation)
 
 <kbd> <br> [English][en] <br> </kbd>
 <kbd> <br> [简体中文][zh-CN] <br> </kbd>
@@ -15,10 +15,6 @@
 
 ## 軟體需求
 
-- Gazebo
-   ```
-   sudo apt-get install gazebo11 && sudo apt-get install libgazebo11-dev
-   ```
 - Turtlebot3
    ```
    sudo apt-get install ros-noetic-turtlebot3*
@@ -35,9 +31,17 @@
    cd ~/catkin_ws/src
    ```
 2. 從 GitHub 複製 simple_nav_goals 套件至本地端：
-   ```
-   git clone https://github.com/wenjiu2001/Simple-Navigation-Goals.git simple_nav_goals
-   ```
+
+   - 程式語言
+
+      - C++
+        ```
+        git clone https://github.com/wenjiu2001/Simple-Navigation-Goals.git simple_nav_goals
+        ```
+      - Python
+        ```
+        git clone -b python-devel https://github.com/wenjiu2001/Simple-Navigation-Goals.git simple_nav_goals
+        ```
 3. 建置 simple_nav_goals 套件：
    ```
    cd ~/catkin_ws && catkin_make
@@ -61,13 +65,24 @@
 
 1. 新增永久性工作空間環境變量：
 
-   註：「{TURTLEBOT3_MODEL}」代表所使用的模型名稱：「burger」、「waffle」或「waffle_pi」。
-   ```
-   echo "export TURTLEBOT3_MODEL={TURTLEBOT3_MODEL}" >> ~/.bashrc
-   ```
-   ```
-   source ~/.bashrc
-   ```
+   - Turtlebot3模型
+
+      - Burger
+        ```
+        echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
+        ```
+      - Waffle
+        ```
+        echo "export TURTLEBOT3_MODEL=waffle" >> ~/.bashrc
+        ```
+      - Waffle Pi
+        ```
+        echo "export TURTLEBOT3_MODEL=waffle_pi" >> ~/.bashrc
+        ```
+   - 重新載入 .bashrc 文件
+     ```
+     source ~/.bashrc
+     ```
 2. 啟動模擬世界和任務導航：
 
    註：請分別在不同的終端機視窗中執行這兩個指令。

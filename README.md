@@ -1,8 +1,8 @@
 # Simple-Navigation-Goals
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![Ubuntu:Focal](https://img.shields.io/badge/Ubuntu-Focal-brightgreen)](https://releases.ubuntu.com/focal/)
-[![ROS:Noetic](https://img.shields.io/badge/ROS-Noetic-blue)](https://wiki.ros.org/noetic/Installation/Ubuntu)
+![ROS](https://img.shields.io/badge/ROS-Noetic-blue)
+[![Robot](https://img.shields.io/badge/Robot-TurtleBot3-brightgreen)](https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#gazebo-simulation)
 
 <kbd> <br> English <br> </kbd>
 <kbd> <br> [简体中文][zh-CN] <br> </kbd>
@@ -15,17 +15,13 @@
 
 ## Requirements
 
-- Gazebo
-   ```
-   sudo apt-get install gazebo11 && sudo apt-get install libgazebo11-dev
-   ```
 - Turtlebot3
    ```
    sudo apt-get install ros-noetic-turtlebot3*
    ```
 - DWA Local Planner
    ```
-   sudo apt-get install ros-noetic-dwa-local-planner*
+   sudo apt-get install ros-noetic-dwa-local-planner
    ```
 
 ## Install and Build
@@ -35,9 +31,17 @@
    cd ~/catkin_ws/src
    ```
 2. Clone simple_nav_goals package for github :
-   ```
-   git clone https://github.com/wenjiu2001/Simple-Navigation-Goals.git simple_nav_goals
-   ```
+
+   - Programming languages
+
+      - C++
+        ```
+        git clone https://github.com/wenjiu2001/Simple-Navigation-Goals.git simple_nav_goals
+        ```
+      - Python
+        ```
+        git clone -b python-devel https://github.com/wenjiu2001/Simple-Navigation-Goals.git simple_nav_goals
+        ```
 3. Build simple_nav_goals package :
    ```
    cd ~/catkin_ws && catkin_make
@@ -61,13 +65,24 @@ Adjustments can be made by modifying the following parameters:
 
 1. Add permanent workspace environment variables :
 
-   Note: "{TURTLEBOT3_MODEL}" represents the name of the utilized models: "burger", "waffle", or "waffle_pi".
-   ```
-   echo "export TURTLEBOT3_MODEL={TURTLEBOT3_MODEL}" >> ~/.bashrc
-   ```
-   ```
-   source ~/.bashrc
-   ```
+   - Turtlebot3 Model
+
+      - Burger
+        ```
+        echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
+        ```
+      - Waffle
+        ```
+        echo "export TURTLEBOT3_MODEL=waffle" >> ~/.bashrc
+        ```
+      - Waffle Pi
+        ```
+        echo "export TURTLEBOT3_MODEL=waffle_pi" >> ~/.bashrc
+        ```
+   - Reload the .bashrc file
+     ```
+     source ~/.bashrc
+     ```
 2. Launch simulation world and task navigation :
 
    Note: Execute these two commands separately in different terminal windows.

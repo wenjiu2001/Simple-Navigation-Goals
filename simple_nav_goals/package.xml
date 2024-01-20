@@ -1,19 +1,26 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>simple_nav_goals</name>
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <description>The simple_nav_goals package</description>
+
   <maintainer email="tp6u4jo6@gmail.com">Wenjiu</maintainer>
   <license>CC BY-NC-SA 4.0</license>
 
   <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
   <build_depend>actionlib</build_depend>
   <build_depend>move_base_msgs</build_depend>
-  <build_depend>roscpp</build_depend>
-  <build_export_depend>actionlib</build_export_depend>
-  <build_export_depend>move_base_msgs</build_export_depend>
-  <build_export_depend>roscpp</build_export_depend>
+
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
   <exec_depend>actionlib</exec_depend>
   <exec_depend>move_base_msgs</exec_depend>
-  <exec_depend>roscpp</exec_depend>
+
+  <export>
+    <!-- Other tools can go here -->
+  </export>
 </package>
+

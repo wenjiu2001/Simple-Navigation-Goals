@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+import rospy
+from std_msgs.msg import String
+from actionlib import SimpleActionClient
+from move_base_msgs.msg import MoveBaseGoal, MoveBaseAction
+import sys
+
+locations = ["/Home", "/Table1", "/Table2", "/Table3", "/Table4", "/Meal"]
+goal_locate = [[0, 0] for _ in range(6)]
+zbar_cb_msg = ""
+zbar_last_cb_msg = ""
+
+def get_param():
+    global goal_locate
+    for i in range(6):
+        param_name_x = locations[i] + "/x"
+        param_name_y = locations[i] + "/y"
+        goal_locate[i][0] = rospy.get_param(param_name_x)
+        goal_locate[i][1] = rospy.get_param(param_name_y)
+
+def nav(table):
+    client = SimpleActionClient('move_base', MoveBaseAction)
+    client.wait_for_server()
+
+    goal = MoveBaseGoal()
+    goal.target_pose.header.frame_id = "map"
+    goal.target_pose.header.stamp = rospy.Time.now()
+    goal.target_pose.pose.position.x = goal_locate[table][0]
+    goal.target_pose.pose.position.y = goal_locate[table][1]
+    goal.target_pose.pose.orientation.w = 1.0
+
+    rospy.loginfo("Sending goal")
+    client.send_goal(goal)
+    client.wait_for_result()
+
+    if client.get_state() == 3:
+        rospy.loginfo("Success")
+    else:
+        rospy.loginfo("Failure")
+
+def zbar():
+    global zbar_cb_msg, zbar_last_cb_msg
+    rospy.loginfo("Awaiting the scan of the QR code")
+    while not rospy.is_shutdown():
+        if zbar_last_cb_msg != zbar_cb_msg:
+            rospy.loginfo("--------------ZBar--------------\n| Callback value : %s\n", zbar_cb_msg)
+            zbar_last_cb_msg = zbar_cb_msg
+            break
+        rospy.sleep(0.1)
+
+def zbar_callback(msg):
+    global zbar_cb_msg
+    zbar_cb_msg = msg.data
+
+def main():
+    rospy.init_node('simple_nav_goals')
+    rospy.Subscriber("zbar_opencv_code", String, zbar_callback)
+
+    while not rospy.is_shutdown():
+        get_param()
+        # Print the locations and their coordinates
+        for i, loc in enumerate(locations):
+            rospy.loginfo("| %d %s %.2f %.2f", i, loc, goal_locate[i][0], goal_locate[i][1])
+
+        nav_table = int(input("Enter table number: "))
+        nav(nav_table)
+        zbar()
+
+if __name__ == '__main__':
+    try:
+        main()
+    except rospy.ROSInterruptException:
+        pass

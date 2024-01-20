@@ -1,8 +1,8 @@
 # Simple-Navigation-Goals
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![Ubuntu:Focal](https://img.shields.io/badge/Ubuntu-Focal-brightgreen)](https://releases.ubuntu.com/focal/)
-[![ROS:Noetic](https://img.shields.io/badge/ROS-Noetic-blue)](https://wiki.ros.org/noetic/Installation/Ubuntu)
+![ROS](https://img.shields.io/badge/ROS-Noetic-blue)
+[![Robot](https://img.shields.io/badge/Robot-TurtleBot3-brightgreen)](https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#gazebo-simulation)
 
 <kbd> <br> [English][en] <br> </kbd>
 <kbd> <br> 简体中文 <br> </kbd>
@@ -15,10 +15,6 @@
 
 ## 软件依赖
 
-- Gazebo
-   ```
-   sudo apt-get install gazebo11 && sudo apt-get install libgazebo11-dev
-   ```
 - Turtlebot3
    ```
    sudo apt-get install ros-noetic-turtlebot3*
@@ -35,9 +31,17 @@
    cd ~/catkin_ws/src
    ```
 2. 从 GitHub 克隆 simple_nav_goals 包至本地端：
-   ```
-   git clone https://github.com/wenjiu2001/Simple-Navigation-Goals.git simple_nav_goals
-   ```
+
+   - 编程语言
+
+      - C++
+        ```
+        git clone https://github.com/wenjiu2001/Simple-Navigation-Goals.git simple_nav_goals
+        ```
+      - Python
+        ```
+        git clone -b python-devel https://github.com/wenjiu2001/Simple-Navigation-Goals.git simple_nav_goals
+        ```
 3. 构建 simple_nav_goals 包：
    ```
    cd ~/catkin_ws && catkin_make
@@ -61,13 +65,24 @@
 
 1. 添加永久性工作空间环境变量：
 
-   注：「{TURTLEBOT3_MODEL}」代表所使用的模型名称：「burger」、「waffle」或「waffle_pi」。
-   ```
-   echo "export TURTLEBOT3_MODEL={TURTLEBOT3_MODEL}" >> ~/.bashrc
-   ```
-   ```
-   source ~/.bashrc
-   ```
+   - Turtlebot3模型
+
+      - Burger
+        ```
+        echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
+        ```
+      - Waffle
+        ```
+        echo "export TURTLEBOT3_MODEL=waffle" >> ~/.bashrc
+        ```
+      - Waffle Pi
+        ```
+        echo "export TURTLEBOT3_MODEL=waffle_pi" >> ~/.bashrc
+        ```
+   - 重新加载 .bashrc 文件
+     ```
+     source ~/.bashrc
+     ```
 2. 启动模拟世界和任务导航：
 
    注：请分别在不同的终端窗口中执行这两个命令。

@@ -1,25 +1,30 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(simple_nav_goals)
 
+## Find catkin and any catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  rospy
+  std_msgs
   actionlib
   move_base_msgs
-  roscpp
 )
 
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES zbar_opencv
-#  DEPENDS system_lib
-)
+## Declare a catkin package
+catkin_package()
 
+## Specify additional locations of header files
 include_directories(
-# include
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(${PROJECT_NAME} src/simple_nav_goals.cpp)
+## Mark executable scripts (Python etc.)
+catkin_install_python(PROGRAMS
+  scripts/simple_nav_goals
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
-target_link_libraries(${PROJECT_NAME}
-  ${catkin_LIBRARIES}
+## Mark other files for installation (e.g. launch and bag files, etc.)
+install(DIRECTORY
+  launch
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
