@@ -52,7 +52,7 @@ void nav(int table) {
   if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
     ROS_INFO("Success");
   else
-    ROS_INFO("Fail");
+    ROS_INFO("Failure");
 }
 
 void zbar(){
@@ -72,7 +72,7 @@ void zbarCallback(const std_msgs::String::ConstPtr &msg) {
 }
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "simple_navigation_goals");
+  ros::init(argc, argv, "simple_nav_goals");
   ros::NodeHandle nh;
   ros::Subscriber sub = nh.subscribe("zbar_opencv_code", 1000, zbarCallback);
   while (ros::ok()) {

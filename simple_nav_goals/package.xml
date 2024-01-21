@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>simple_nav_goals</name>
-  <version>0.0.0</version>
+  <version>1.2.0</version>
   <description>The simple_nav_goals package</description>
   <maintainer email="tp6u4jo6@gmail.com">Wenjiu</maintainer>
   <license>CC BY-NC-SA 4.0</license>
