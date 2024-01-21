@@ -95,7 +95,7 @@ Adjustments can be made by modifying the following parameters:
    
 ## References
 
-- Ubuntu install of ROS Noetic (https://wiki.ros.org/noetic/Installation/Ubuntu)
-- Install Gazebo using Ubuntu packages (https://classic.gazebosim.org/tutorials?tut=install_ubuntu)
-- TurtleBot3 Simulation (https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/)
-- SendingSimpleGoals (https://wiki.ros.org/navigation/Tutorials/SendingSimpleGoals)
+- [Ubuntu install of ROS Noetic](https://wiki.ros.org/noetic/Installation/Ubuntu)
+- [Install Gazebo using Ubuntu packages](https://classic.gazebosim.org/tutorials?tut=install_ubuntu)
+- [TurtleBot3 Simulation](https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/)
+- [SendingSimpleGoals](https://wiki.ros.org/navigation/Tutorials/SendingSimpleGoals)

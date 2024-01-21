@@ -95,7 +95,7 @@
    
 ## 参考资料
 
-- Ubuntu install of ROS Noetic (https://wiki.ros.org/noetic/Installation/Ubuntu)
-- Install Gazebo using Ubuntu packages (https://classic.gazebosim.org/tutorials?tut=install_ubuntu)
-- TurtleBot3 Simulation (https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/)
-- SendingSimpleGoals (https://wiki.ros.org/navigation/Tutorials/SendingSimpleGoals)
+- [在Ubuntu上安装ROS Noetic](https://wiki.ros.org/noetic/Installation/Ubuntu)
+- [使用Ubuntu软件包安装Gazebo](https://classic.gazebosim.org/tutorials?tut=install_ubuntu)
+- [TurtleBot3 仿真](https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/)
+- [发送简单目标](https://wiki.ros.org/navigation/Tutorials/SendingSimpleGoals)
